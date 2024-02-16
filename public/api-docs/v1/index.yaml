@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Ensi Backend Skeleton (Replace me)
+  contact:
+    name: API Support
+    url: https://ensi.tech/contacts
+    email: mail@greensight.ru
+  version: 1.0.0
+  description: Ensi Backend Skeleton Description (Replace me)
+servers:
+  - url: /api/v1
+tags:
+  - name: examples
+    description: Тэг-пример
+paths:
+  /examples/{id}:
+    get:
+      tags:
+        - examples
+      operationId: getExample
+      x-lg-handler: 'App\Http\ApiV1\Modules\Foos\Controllers\FoosController@get'
+      x-lg-route-name: 'getExample'
+      x-lg-skip-request-generation: true
+      summary: Получение объекта типа Example
+      description: Получение объекта типа Example
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+        - $ref: '#/components/parameters/QueryInclude'
+      responses:
+        #"200":
+          #description: Успешный ответ
+          # content:
+          #  application/json:
+          #    schema:
+          #      $ref: './customers.yaml#/CustomerResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+components:
+  parameters:
+    QueryInclude:
+      $ref: './common_parameters.yaml#/QueryInclude'
+    PathId:
+      $ref: './common_parameters.yaml#/PathId'
+  schemas:
+    EmptyDataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          nullable: true
+        meta:
+          type: object
+      required:
+          - data
+    PaginationTypeEnum:
+      $ref: './common_schemas.yaml#/PaginationTypeEnum'
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'

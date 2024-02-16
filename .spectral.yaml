@@ -1,0 +1,71 @@
+extends: spectral:oas
+rules:
+  oas3-unused-component: off
+  operation-operationId: error
+  operation-tags: error
+  operation-tag-defined: error
+  components-parameters-case:
+    description: components.parameters must use Pascal case
+    type: style
+    severity: error
+    given: "$.components.parameters[*]~"
+    then:
+      function: casing
+      functionOptions:
+        type: pascal
+  components-schemas-case:
+    description: components.schemas must use Pascal case
+    type: style
+    severity: error
+    given: "$.components.schemas[*]~"
+    then:
+      function: casing
+      functionOptions:
+        type: pascal
+  components-responses-case:
+    description: components.responses must use Pascal case
+    type: style
+    severity: error
+    given: "$.components.responses[*]~"
+    then:
+      function: casing
+      functionOptions:
+        type: pascal
+  paths-case:
+    description: paths must use kebab-case
+    type: style
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(\/([a-z0-9-:]+|\{[a-zA-Z_]+\}|(\{[a-zA-Z_]+\}:[a-z0-9-]+)))+$'
+  fields-case-request:
+    description: fields must use snake_case
+    type: style
+    severity: error
+    given: "$.paths[*][*][requestBody][content][*][schema]..[properties]"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^(_?)[a-z0-9]+((_|\\.)?[a-z0-9])*$"
+  fields-case-response:
+    description: fields must use snake_case
+    type: style
+    severity: error
+    given: "$.paths[*][*][responses][*][content][*][schema]..[properties]"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^(_?)[a-z0-9]+((_|\\.)?[a-z0-9])*$"
+  operation-id-case:
+    description: operationIds must use lowerCamelCase
+    type: style
+    severity: error
+    given: "$.paths[*][*][operationId]"
+    then:
+      function: casing
+      functionOptions:
+        type: camel
