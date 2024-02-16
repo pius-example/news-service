@@ -1,0 +1,48 @@
+NewsOne:
+  get:
+    tags:
+      - news
+    operationId: getNews
+    x-lg-handler: 'App\Http\ApiV1\Modules\News\Controllers\NewsController@get'
+    x-lg-skip-request-generation: true
+    summary: Получение объекта типа News
+    description: Получение объекта типа News
+    parameters:
+      - $ref: '../index.yaml#/components/parameters/PathId'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/news.yaml#/NewsResponse'
+      "404":
+        $ref: '../index.yaml#/components/responses/NotFound'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+News:
+  post:
+    tags:
+      - news
+    operationId: createNews
+    summary: Запрос на создание новости
+    description: Запрос на создание новости
+    x-lg-handler: 'App\Http\ApiV1\Modules\News\Controllers\NewsController@create'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/news.yaml#/CreateNewsRequest'
+    responses:
+      "201":
+        description: Выполнено успешно
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/news.yaml#/NewsResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'

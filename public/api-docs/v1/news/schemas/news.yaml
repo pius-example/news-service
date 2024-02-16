@@ -1,0 +1,62 @@
+News:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: Идентификатор новости
+      example:
+    title:
+      type: string
+      description: Заголовок новости
+      example: "В Москве появится новый вокзал"
+    body:
+      type: string
+      description: Текст новости
+      example: "Построят его в Зеленограде, оттуда можно будет доехать до Санкт-Петербурга всего за 2 часа и 15 минут"
+    counter:
+      type: integer
+      description: Счетчик просмотров
+      example: 100
+    updated_at:
+      description: "Дата обновления"
+      format: date-time
+      type: string
+      example: "2024-01-01T11:57:28.000000Z"
+    created_at:
+      description: "Дата обновления"
+      format: date-time
+      type: string
+      example: "2024-01-01T11:57:28.000000Z"
+  required:
+    - id
+    - title
+    - body
+    - counter
+    - updated_at
+    - created_at
+
+NewsResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/News'
+    meta:
+      type: object
+  required:
+    - data
+
+CreateNewsRequest:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Заголовок новости
+      example: "В Москве появится новый вокзал"
+    body:
+      type: string
+      description: Текст новости
+      example: "Построят его в Зеленограде, оттуда можно будет доехать до Санкт-Петербурга всего за 2 часа и 15 минут"
+  required:
+    - title
+    - body
+
